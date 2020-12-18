@@ -1,5 +1,5 @@
-import {fetchJoker} from "../fetchJoker"
+import {fetchJokes} from "../fetchJokes"
 
-fetchJoker()
+fetchJokes()
     .then(result => console.log(result))
     .catch((e:Error) => console.log(e.message))
