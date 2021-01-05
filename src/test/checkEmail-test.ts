@@ -3,6 +3,7 @@ import { checkEmail } from "../checkEmail"
 
 [
     {email : 'abc@naver.com'},
+    {email : 'abcas@naver'},
     {email: 'asd'}
 ].forEach((target, index) => {
     const [value, failureReson] = checkEmail(target)
