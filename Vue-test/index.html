@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <style>
+        .normal{
+            color: blue;
+        }
+        .active{
+            color: red;
+        }
+    </style>
+    <div id="app">
+        <div ref="msg">{{ msg }}</div>
+        <div ref='div'></div>
+        <div v-once>{{ msg }}</div>
+        <div v-html="msg">{{ msg }}</div>
+        <div :class="className" @click="changeClassName">{{ msg }}</div>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello world, <br/> good',
+                number: 2,
+                className: 'normal',
+            },
+            methods:{
+                changeClassName(){
+                    this.className = 'active'
+                }
+            },
+            computed:{},
+            watch:{
+               
+            },
+            beforeCreate(){
+                console.log('beforCreate',this.msg)
+            },
+            created(){
+                console.log('Created',this.msg)
+            },
+            beforeMount(){  
+                console.log('beformount',this.$refs.div)
+            },
+            mounted(){
+                console.log('mounted',this.$refs.div)
+            },
+            beforeUpdate(){
+                console.log('beforUpdate',this.$refs.msg.innerText)
+            },
+            updated(){
+                console.log('updated',this.$refs.msg.innerText)
+            },
+            beforeDestroy(){
+                console.log('beforeDestroy')
+            },
+            destroyed(){
+                console.log('destroyed')
+            }
+        })
+
+        console.log(vm)
+    </script>
+</body>
+</html>
