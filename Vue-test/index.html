@@ -8,7 +8,7 @@
 
 </head>
 <body>
-    <style>
+    <!-- <style>
         .normal{
             color: blue;
         }
@@ -22,8 +22,28 @@
         <div v-once>{{ msg }}</div>
         <div v-html="msg">{{ msg }}</div>
         <div :class="className" @click="changeClassName">{{ msg }}</div>
-    </div>
+        <div>{{ reverssMsg() }}</div>
+        <div>{{ msg.split('').reverse().join('') }}</div>
+        <div>--------------------</div>
+        <div>{{ reversedMsg }}</div>
+        <div>{{ reversedMsg }}</div>
+    </div> -->
 
+    <!-- <div id="app">
+        <div class="todos">
+            <div v-for="todo in computedtodos" 
+            :key="todo.id">
+
+            <input type="checkbox"
+            v-model=" todo.done">
+        <span>{{ todo.title }}</span></input>
+            </div>
+        </div>
+    </div> -->
+
+    <div id='app'>
+        <div> {{ reverseMsg }}</div>
+    </div>
     <script>
         const vm = new Vue({
             el: '#app',
@@ -31,13 +51,47 @@
                 msg: 'hello world, <br/> good',
                 number: 2,
                 className: 'normal',
+                todos:[
+                    { title: 'ㅇㅏ침먹기'},
+                    { title: '점심먹기'},
+                    { title: '저녁먹기'},
+                ],
             },
             methods:{
                 changeClassName(){
                     this.className = 'active'
+                },
+                reverssMsg( ){
+                    return this.msg.split('').reverse().join('')
                 }
             },
-            computed:{},
+            computed:{
+                computedtodos(){
+                    
+                    return this.todos.map((todo, i) => {
+                        // return   Object.assign({}, todo, {
+                        //     id : i + 1,
+                        //     done: false
+                        // })
+                        return {
+                            ...todo,
+                            id: i + 1,
+                            done: false
+                        }   
+                    })
+                },
+                reversedMsg(){
+                    return this.msg.split('').reverse().join('')
+                },
+                reverseMsg:{
+                    get: function (){
+                        return this.msg.split('').reverse().join('')
+                    },
+                    set: function (value){
+                        this.msg = value
+                    }
+                }
+            },
             watch:{
                
             },
