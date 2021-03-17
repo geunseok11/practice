@@ -71,7 +71,18 @@
         class="box"></div>
     </div> -->
     <div id="app">
-        
+        <button @click="pushTodo">PUSH</button>
+        <ul class="todos">
+            <li v-for="(todo,index) in todos"
+            :key="index">
+        {{ todo.title}}</li>
+        </ul>
+        <ul class="heropy">
+            <li v-for="(value, key, index) in heropy"
+            :key="index">
+                {{ value }}
+            </li>
+        </ul>
     </div>
     <script>
         const vm = new Vue({
@@ -85,6 +96,12 @@
                     { title: '점심먹기'},
                     { title: '저녁먹기'},
                 ],
+                heropy:{
+                    name: "heropy",
+                    age: 23,
+                    // homepage:"",
+                    // email:"",
+                } ,
                 colorState: 'blue',
                 show:true,
             },
@@ -97,6 +114,9 @@
                 },
                 toggle(){
                     this.show = !this.show
+                },
+                pushTodo(){
+                    this.todos.push( {title:'야식먹기'})
                 }
             },
             computed:{
