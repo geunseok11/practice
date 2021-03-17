@@ -8,6 +8,22 @@
 
 </head>
 <body>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .box--red {
+            background-color: red;
+        }
+        .box--blue{
+            background-color: blue;
+        }
+        .box--gray{
+            background-color: gray;
+        }
+    </style>
     <!-- <style>
         .normal{
             color: blue;
@@ -41,8 +57,21 @@
         </div>
     </div> -->
 
-    <div id='app'>
+    <!-- <div id='app'>
+        <div>{{ msg }}</div>
         <div> {{ reverseMsg }}</div>
+        <div v-if="colorState === 'red'" 
+        class="box box--red"></div>
+        <div v-else-if="colorState === 'blue'"
+        class="box box--blue"></div>
+        <div v-else
+        class="box box--gray"></div>
+        <button @click="toggle">Toggle</button>
+        <div v-show="show"
+        class="box"></div>
+    </div> -->
+    <div id="app">
+        
     </div>
     <script>
         const vm = new Vue({
@@ -52,10 +81,12 @@
                 number: 2,
                 className: 'normal',
                 todos:[
-                    { title: 'ㅇㅏ침먹기'},
+                    { title: '아침먹기'},
                     { title: '점심먹기'},
                     { title: '저녁먹기'},
                 ],
+                colorState: 'blue',
+                show:true,
             },
             methods:{
                 changeClassName(){
@@ -63,6 +94,9 @@
                 },
                 reverssMsg( ){
                     return this.msg.split('').reverse().join('')
+                },
+                toggle(){
+                    this.show = !this.show
                 }
             },
             computed:{
@@ -84,16 +118,23 @@
                     return this.msg.split('').reverse().join('')
                 },
                 reverseMsg:{
-                    get: function (){
+                    //getter
+                    get (){
                         return this.msg.split('').reverse().join('')
                     },
-                    set: function (value){
+                    //setter
+                    set(value){
                         this.msg = value
                     }
                 }
             },
             watch:{
-               
+               msg(newMsg) {
+                console.log("new data: " + newMsg)
+               },
+               reversedMsg(newMsg){
+                console.log("new reversedMsg: " + newMsg)
+               }
             },
             beforeCreate(){
                 console.log('beforCreate',this.msg)
