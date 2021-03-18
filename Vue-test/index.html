@@ -23,6 +23,16 @@
         .box--gray{
             background-color: gray;
         }
+        .parent{
+            width:200px;
+            height: 200px;
+            background: royalblue;
+        }
+        .child{
+            width: 100px;
+            height: 100px;
+            background: salmon;
+        }
     </style>
     <!-- <style>
         .normal{
@@ -69,25 +79,44 @@
         <button @click="toggle">Toggle</button>
         <div v-show="show"
         class="box"></div>
-    </div> -->
-    <div id="app">
         <button @click="pushTodo">PUSH</button>
         <ul class="todos">
             <li v-for="(todo,index) in todos"
             :key="index">
         {{ todo.title}}</li>
         </ul>
+        <button @click="addHomepage">ADD Homepage</button>
         <ul class="heropy">
             <li v-for="(value, key, index) in heropy"
             :key="index">
                 {{ value }}
             </li>
         </ul>
+        <ul>
+            <li v-for="(todo, index) in todos"
+            :key="index"
+            :class="'item-' + (index +1)"
+            @click="clickMethod1(todo.title, $event); clickMethod2()">{{ todo.title}}</li>
+        </ul>
+         <div class="parent" @click.self="clickHandler">
+            <div class="child" @click="clickHandler"></div>
+        </div>
+        <input type="text" @keydown.ctrl.enter="keydownHandler">
+        <input type="text" @input="bindMessage" :value="message">
+       <div>{{ message }}</div>
+    </div> -->
+    <div id="app">
+       <input type="text" 
+       v-model.number="message">
+       <div>{{ message }}</div>
+       <div>{{ typeof message }}</div>
     </div>
+
     <script>
         const vm = new Vue({
             el: '#app',
             data: {
+                message:"hello~",
                 msg: 'hello world, <br/> good',
                 number: 2,
                 className: 'normal',
@@ -116,7 +145,30 @@
                     this.show = !this.show
                 },
                 pushTodo(){
-                    this.todos.push( {title:'야식먹기'})
+                    // this.todos.push( {title:'야식먹기'})
+                    // Vue.set(this.todos, 3, {title:'야식먹기!'})
+                    this.$set(this.todos, 3, {title:'야식먹기!'})
+                },
+                addHomepage(){
+                    this.$set(this.heropy,"hompage",'heropy.blog')
+                },
+                clickMethod1(title, event){
+                    console.log('click1')
+                    // console.log(title)
+                    // console.log(event.currentTarget.className)
+                },
+                clickMethod2(){
+                    console.log('click2') 
+                },
+                clickHandler(event){
+                    console.log(event.currentTarget.className)
+                },
+                keydownHandler(event){
+                    
+                    console.log('dow!!')
+                },
+                bindMessage(event){
+                    this.message = event.target.value
                 }
             },
             computed:{
@@ -156,30 +208,30 @@
                 console.log("new reversedMsg: " + newMsg)
                }
             },
-            beforeCreate(){
-                console.log('beforCreate',this.msg)
-            },
-            created(){
-                console.log('Created',this.msg)
-            },
-            beforeMount(){  
-                console.log('beformount',this.$refs.div)
-            },
-            mounted(){
-                console.log('mounted',this.$refs.div)
-            },
-            beforeUpdate(){
-                console.log('beforUpdate',this.$refs.msg.innerText)
-            },
-            updated(){
-                console.log('updated',this.$refs.msg.innerText)
-            },
-            beforeDestroy(){
-                console.log('beforeDestroy')
-            },
-            destroyed(){
-                console.log('destroyed')
-            }
+            // beforeCreate(){
+            //     console.log('beforCreate',this.msg)
+            // },
+            // created(){
+            //     console.log('Created',this.msg)
+            // },
+            // beforeMount(){  
+            //     console.log('beformount',this.$refs.div)
+            // },
+            // mounted(){
+            //     console.log('mounted',this.$refs.div)
+            // },
+            // beforeUpdate(){
+            //     console.log('beforUpdate',this.$refs.msg.innerText)
+            // },
+            // updated(){
+            //     console.log('updated',this.$refs.msg.innerText)
+            // },
+            // beforeDestroy(){
+            //     console.log('beforeDestroy')
+            // },
+            // destroyed(){
+            //     console.log('destroyed')
+            // }
         })
 
         console.log(vm)
