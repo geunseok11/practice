@@ -104,18 +104,64 @@
         <input type="text" @keydown.ctrl.enter="keydownHandler">
         <input type="text" @input="bindMessage" :value="message">
        <div>{{ message }}</div>
-    </div> -->
-    <div id="app">
        <input type="text" 
        v-model.number="message">
        <div>{{ message }}</div>
        <div>{{ typeof message }}</div>
+        <my-comp :my-msg= 'message' @my-event="updateMessage"></my-comp>
+       <div id="app2">
+        <my-comp />
     </div>
+    </div> -->
+    <div id="app">
+       <my-comp>
+           <!-- <div slot='slot1'>Hello Slot</div>
+           <input type="text"> -->
+           <template slot-scope="{mySlotData}">
+               {{ mySlotData }}
+           </template>
+       </my-comp>
+       
+    </div>
+    
 
     <script>
+        Vue.component('my-comp', {
+            template: '<div><slot :my-slot-data="message"></slot></div>',
+            // props: {
+            //     myMsg: {
+            //         type: [String, Number],
+            //         required: true,
+            //         // validator(value){
+            //         //     return value === 'hello~'
+            //         // }
+            //     } 
+            // },
+            data(){
+                return{
+                    message:'hello slot?'
+                }
+            },
+            methods:{
+                updateMsg(){
+                    // this.myMsg = "good"
+                    this.$emit('my-event', 'Good')
+                }
+            }
+        })
+
+        const myComp = {
+            template: '<div class="me"> {{ message }}</div>',
+            data(){
+                return {
+                    message: "hello Vue~"
+                }
+            }
+        }
         const vm = new Vue({
             el: '#app',
-            data: {
+            data() {
+               return {
                 message:"hello~",
                 msg: 'hello world, <br/> good',
                 number: 2,
@@ -132,7 +178,7 @@
                     // email:"",
                 } ,
                 colorState: 'blue',
-                show:true,
+                show:true,}
             },
             methods:{
                 changeClassName(){
@@ -169,6 +215,9 @@
                 },
                 bindMessage(event){
                     this.message = event.target.value
+                },
+                updateMessage(value){
+                    this.message = value
                 }
             },
             computed:{
@@ -208,6 +257,9 @@
                 console.log("new reversedMsg: " + newMsg)
                }
             },
+            components: {
+                'my-component': myComp
+            }
             // beforeCreate(){
             //     console.log('beforCreate',this.msg)
             // },
@@ -233,7 +285,12 @@
             //     console.log('destroyed')
             // }
         })
-
+        // const vm2 = new Vue({
+        //     el:'#app2',
+        //     components:{
+        //         myComp
+        //     }
+        // })
         console.log(vm)
     </script>
 </body>
