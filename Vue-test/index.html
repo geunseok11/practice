@@ -109,10 +109,11 @@
        <div>{{ message }}</div>
        <div>{{ typeof message }}</div>
         <my-comp :my-msg= 'message' @my-event="updateMessage"></my-comp>
-       <div id="app2">
+       
+    </div> -->
+    <div id="app2">
         <my-comp />
     </div>
-    </div> -->
     <div id="app">
        <my-comp>
            <!-- <div slot='slot1'>Hello Slot</div>
@@ -285,12 +286,12 @@
             //     console.log('destroyed')
             // }
         })
-        // const vm2 = new Vue({
-        //     el:'#app2',
-        //     components:{
-        //         myComp
-        //     }
-        // })
+        const vm2 = new Vue({
+            el:'#app2',
+            components:{
+                myComp
+            }
+        })
         console.log(vm)
     </script>
 </body>
